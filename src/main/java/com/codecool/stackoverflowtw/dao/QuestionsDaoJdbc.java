@@ -85,9 +85,8 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
             statement.setString(1, description);
             statement.setString(1, userName);
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                return resultSet.getInt("id");
-            }
+            resultSet.next();
+            return resultSet.getInt("id");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
