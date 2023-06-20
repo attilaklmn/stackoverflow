@@ -1,16 +1,31 @@
-import QuestionCard from './components/QuestionCard'
 import './App.css';
 import AppBar from './components/Appbar';
-import { Container } from '@mui/material';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Questions from './Questions';
+import Home from './Home';
+import { useState } from 'react';
+import SideMenu from './SideMenu';
+
 
 function App() {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+    const handleDrawerToggle = () => {
+        setIsDrawerOpen(!isDrawerOpen);
+      };
+
   return (
     <div className="App">
-      <AppBar/>
-      <Container sx={{ display:'flex', alignItems:'center', justifyContent:'center', flexDirection:'column' }}>
-        <QuestionCard/>
-        <QuestionCard/>
-      </Container>
+      <BrowserRouter>
+      <AppBar handleDrawerToggle={handleDrawerToggle} />
+      <SideMenu isOpen={isDrawerOpen} handleDrawerToggle={handleDrawerToggle} />
+      <Routes>
+        <Route exact path="/" element={<Home/>} />
+        <Route path="/questions" element={<Questions/>} />
+      </Routes>
+      
+      </BrowserRouter>
+      
     </div>
   );
 }
