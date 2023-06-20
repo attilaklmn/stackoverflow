@@ -24,12 +24,12 @@ public class QuestionService {
 
     public List<QuestionDTO> getAllQuestions() {
         List<Question> allQuestions = questionsDAO.getAllQuestions();
-        return allQuestions.stream().map(question -> new QuestionDTO(question.id(), question.title(), question.desc(), question.createDate())).collect(Collectors.toList());
+        return allQuestions.stream().map(question -> new QuestionDTO(question.id(), question.title(), question.desc(), question.createDate(), question.userName())).collect(Collectors.toList());
     }
 
     public QuestionDTO getQuestionById(int id) {
         Question questionById = questionsDAO.getQuestionById(id);
-        return new QuestionDTO(questionById.id(), questionById.title(), questionById.desc(), questionById.createDate());
+        return new QuestionDTO(questionById.id(), questionById.title(), questionById.desc(), questionById.createDate(), questionById.userName());
     }
 
     public boolean deleteQuestionById(int id) {
@@ -38,8 +38,6 @@ public class QuestionService {
     }
 
     public int addNewQuestion(NewQuestionDTO question) {
-        // TODO
-        int createdId = 0;
-        return createdId;
+        return questionsDAO.addNewQuestion(question.title(),question.description(),question.userName());
     }
 }

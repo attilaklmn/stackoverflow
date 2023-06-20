@@ -58,7 +58,7 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
 
     private Question getAllQuestionDetailsFromResultSet(ResultSet resultSet) {
         try {
-       return new Question(resultSet.getInt("id"), resultSet.getString("title"), resultSet.getString("desc"), resultSet.getTimestamp("created").toLocalDateTime());
+       return new Question(resultSet.getInt("id"), resultSet.getString("title"), resultSet.getString("desc"), resultSet.getTimestamp("created").toLocalDateTime(), resultSet.getString("username"));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -71,6 +71,23 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
              PreparedStatement statement = connection.prepareStatement(template)) {
             statement.setInt(1, id);
             statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public int addNewQuestion(String title, String description, String userName) {
+        String template = "INSERT INTO question (title, description, username) VALUES (?,?,?)";
+        try (Connection connection = database.getConnection();
+             PreparedStatement statement = connection.prepareStatement(template)) {
+            statement.setString(1, title);
+            statement.setString(1, description);
+            statement.setString(1, userName);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt("id");
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
