@@ -14,4 +14,6 @@ public interface QuestionsDAO {
     void deleteQuestionById(int id);
 
     int addNewQuestion(String title, String description, String userName);
+
+    List<Question> getAllQuestionsSorted(String propertyToSortBy, boolean ascending);
 }

@@ -40,4 +40,8 @@ public class QuestionService {
     public int addNewQuestion(NewQuestionDTO question) {
         return questionsDAO.addNewQuestion(question.title(),question.description(),question.userName());
     }
+    public List<QuestionDTO> getAllQuestionsSorted(String propertyToSortBy, boolean ascending) {
+        List<Question> allQuestions = questionsDAO.getAllQuestionsSorted(propertyToSortBy, ascending);
+        return allQuestions.stream().map(question -> new QuestionDTO(question.id(), question.title(), question.desc(), question.createDate(), question.userName())).collect(Collectors.toList());
+    };
 }
