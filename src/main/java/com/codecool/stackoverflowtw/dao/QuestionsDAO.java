@@ -13,5 +13,5 @@ public interface QuestionsDAO {
 
     void deleteQuestionById(int id);
 
-    int addNewQuestion(String title, String description, String s);
+    int addNewQuestion(String title, String description, String userName);
 }
