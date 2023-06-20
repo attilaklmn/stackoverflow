@@ -1,23 +1,16 @@
-import logo from './logo.svg';
+import QuestionCard from './components/QuestionCard'
 import './App.css';
+import AppBar from './components/Appbar';
+import { Container } from '@mui/material';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <AppBar/>
+      <Container sx={{ display:'flex', alignItems:'center', justifyContent:'center', flexDirection:'column' }}>
+        <QuestionCard/>
+        <QuestionCard/>
+      </Container>
     </div>
   );
 }
