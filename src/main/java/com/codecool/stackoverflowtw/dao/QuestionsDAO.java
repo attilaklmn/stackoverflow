@@ -8,4 +8,5 @@ import java.util.List;
 public interface QuestionsDAO {
     void sayHi();
     List<Question> getAllQuestions();
+    Question getQuestionById(int id);
 }

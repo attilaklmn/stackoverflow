@@ -13,13 +13,23 @@ import java.util.Map;
 
 @SpringBootApplication
 public class StackoverflowTwApplication {
-    private static Database database;
 
     public static void main(String[] args) {
-        database = new Database(
-                "jdbc:postgresql://localhost:5432/invoice",
-                "postgres",
-                "Mo1991may");
+
+        SpringApplication.run(StackoverflowTwApplication.class, args);
+    }
+
+    @Bean
+    public QuestionsDAO questionsDAO(Database database) {
+        return new QuestionsDaoJdbc(database);
+    }
+
+    @Bean
+    public Database database() {
+        Database database = new Database(
+                System.getenv("DATABASE_URL"),
+                System.getenv("DATABASE_USERNAME"),
+                System.getenv("DATABASE_PASSWORD"));
 
         Map<String, String> tables = Map.of(
                 "question", TableStatements.QUESTION,
@@ -28,13 +38,6 @@ public class StackoverflowTwApplication {
         );
         TableInitializer tableInitializer = new TableInitializer(database, tables);
         tableInitializer.initialize();
-
-
-        SpringApplication.run(StackoverflowTwApplication.class, args);
-    }
-
-    @Bean
-    public QuestionsDAO questionsDAO() {
-        return new QuestionsDaoJdbc(database);
+        return database;
     }
 }
