@@ -60,4 +60,16 @@ public class AnswersDaoJdbc implements AnswersDAO {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public void deleteAnswerById(int id) {
+        String template = "DELETE FROM answer WHERE id = ?";
+        try (Connection connection = database.getConnection();
+             PreparedStatement statement = connection.prepareStatement(template)) {
+            statement.setInt(1, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
