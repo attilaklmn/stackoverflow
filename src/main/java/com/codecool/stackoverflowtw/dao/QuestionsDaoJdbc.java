@@ -11,6 +11,7 @@ import java.util.List;
 
 public class QuestionsDaoJdbc implements QuestionsDAO {
     private final Database database;
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     public QuestionsDaoJdbc(Database database) {
         this.database = database;
@@ -58,6 +59,18 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
     private Question getAllQuestionDetailsFromResultSet(ResultSet resultSet) {
         try {
        return new Question(resultSet.getInt("id"), resultSet.getString("title"), resultSet.getString("desc"), resultSet.getTimestamp("created").toLocalDateTime());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void deleteQuestionById(int id) {
+        String template = "DELETE FROM question WHERE id = ?";
+        try (Connection connection = database.getConnection();
+             PreparedStatement statement = connection.prepareStatement(template)) {
+            statement.setInt(1, id);
+            statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -23,19 +23,17 @@ public class QuestionService {
     }
 
     public List<QuestionDTO> getAllQuestions() {
-        // TODO
         List<Question> allQuestions = questionsDAO.getAllQuestions();
         return allQuestions.stream().map(question -> new QuestionDTO(question.id(), question.title(), question.desc(), question.createDate())).collect(Collectors.toList());
     }
 
     public QuestionDTO getQuestionById(int id) {
-        // TODO
-        questionsDAO.sayHi();
-        return new QuestionDTO(id, "example title", "example desc", LocalDateTime.now());
+        Question questionById = questionsDAO.getQuestionById(id);
+        return new QuestionDTO(questionById.id(), questionById.title(), questionById.desc(), questionById.createDate());
     }
 
     public boolean deleteQuestionById(int id) {
-        // TODO
+        questionsDAO.deleteQuestionById(id);
         return false;
     }
 
