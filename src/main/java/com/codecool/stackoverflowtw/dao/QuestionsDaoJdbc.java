@@ -5,21 +5,16 @@ import com.codecool.stackoverflowtw.sql.database.Database;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class QuestionsDaoJdbc implements QuestionsDAO {
     private final Database database;
+
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     public QuestionsDaoJdbc(Database database) {
         this.database = database;
-    }
-
-    @Override
-    public void sayHi() {
-        System.out.println("Hi DAO!");
     }
 
     @Override
@@ -28,7 +23,7 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
         try (Connection connection = database.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
-            List<Question> allQuestions= new ArrayList<>();
+            List<Question> allQuestions = new ArrayList<>();
             while (resultSet.next()) {
                 allQuestions.add(getAllQuestionDetailsFromResultSet(resultSet));
             }
@@ -58,7 +53,7 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
 
     private Question getAllQuestionDetailsFromResultSet(ResultSet resultSet) {
         try {
-       return new Question(resultSet.getInt("id"), resultSet.getString("title"), resultSet.getString("desc"), resultSet.getTimestamp("created").toLocalDateTime(), resultSet.getString("username"));
+            return new Question(resultSet.getInt("id"), resultSet.getString("title"), resultSet.getString("desc"), resultSet.getTimestamp("created").toLocalDateTime(), resultSet.getString("username"));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
