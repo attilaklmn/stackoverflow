@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
              ResultSet resultSet = statement.executeQuery(query)) {
             List<Question> allQuestions= new ArrayList<>();
             while (resultSet.next()) {
-                allQuestions.add(new Question(resultSet.getInt("id"), resultSet.getString("title"), resultSet.getString("desc"), resultSet.getDate("created").toLocalDate()));
+                allQuestions.add(new Question(resultSet.getInt("id"), resultSet.getString("title"), resultSet.getString("desc"), resultSet.getObject("created", LocalDateTime.class)));
             }
             return allQuestions;
         } catch (SQLException e) {
