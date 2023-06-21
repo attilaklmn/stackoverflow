@@ -25,7 +25,10 @@ public class QuestionController {
             return questionService.getAllQuestions();
         } else return questionService.getAllQuestionsSorted(sortBy, ascending);
     }
-
+    @GetMapping("/all/search/{param}")
+    public List<QuestionDTO> getAllQuestionsWithSearchParamInTitle(@PathVariable String param) {
+        return questionService.getAllQuestionsWithSearchParamInTitle(param);
+    }
     @GetMapping("/{id}")
     public QuestionDTO getQuestionById(@PathVariable int id) {
         return questionService.getQuestionById(id);
