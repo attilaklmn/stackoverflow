@@ -22,10 +22,6 @@ public class StackoverflowTwApplication {
         SpringApplication.run(StackoverflowTwApplication.class, args);
     }
     @Bean
-    public AnswerService answerService(Database database) {
-        return new AnswerService(answersDAO(database));
-    }
-    @Bean
     public QuestionsDAO questionsDAO(Database database) {
         return new QuestionsDaoJdbc(database);
     }

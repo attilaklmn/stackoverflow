@@ -5,10 +5,11 @@ import com.codecool.stackoverflowtw.controller.dto.NewAnswerDTO;
 import com.codecool.stackoverflowtw.dao.AnswersDAO;
 import com.codecool.stackoverflowtw.dao.model.Answer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Service
 public class AnswerService {
     private AnswersDAO answersDAO;
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")

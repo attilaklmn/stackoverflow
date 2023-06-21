@@ -32,6 +32,21 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
             throw new RuntimeException(e);
         }
     }
+    @Override
+    public List<Question> getAllQuestionsSorted(String propertyToSortBy, boolean ascending) {
+        String query = "SELECT * FROM question ORDER BY " + propertyToSortBy + (ascending ? " ASC" : " DESC");
+        try (Connection connection = database.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+            List<Question> allQuestions = new ArrayList<>();
+            while (resultSet.next()) {
+                allQuestions.add(getAllQuestionDetailsFromResultSet(resultSet));
+            }
+            return allQuestions;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @Override
     public Question getQuestionById(int id) {
@@ -93,21 +108,5 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
         throw new RuntimeException("Failed to add new question.");
     }
 
-    @Override
-    public List<Question> getAllQuestionsSorted(String propertyToSortBy, boolean ascending) {
-        String query = "SELECT * FROM question ORDER BY ? ?";
-        try (Connection connection = database.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, propertyToSortBy);
-            statement.setString(2, ascending ? "ASC" : "DESC");
-             ResultSet resultSet = statement.executeQuery();
-            List<Question> allQuestions = new ArrayList<>();
-            while (resultSet.next()) {
-                allQuestions.add(getAllQuestionDetailsFromResultSet(resultSet));
-            }
-            return allQuestions;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
 }
