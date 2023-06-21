@@ -17,17 +17,17 @@ public class AnswerController {
     public AnswerController(AnswerService answerService) {
         this.answerService = answerService;
     }
-
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/{id}")
     public List<AnswerDTO> getAllAnswersForQuestionID(@PathVariable int id) {
         return answerService.getAllAnswersForQuestionID(id);
     }
-
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/new")
     public int addNewAnswer(@RequestBody NewAnswerDTO answerDTO) {
         return answerService.addNewAnswer(answerDTO);
     }
-
+    @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/{id}")
     public boolean deleteAnswerById(@PathVariable int id) {
         return answerService.deleteAnswer(id);
