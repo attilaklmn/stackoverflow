@@ -1,8 +1,8 @@
 import { Card, CardActions, CardContent, CardHeader } from "@mui/material";
-import { styled } from "@mui/material/styles";
+
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const SortBar = (props) => {
   const [sortBy, setSortBy] = useState("");
@@ -13,31 +13,25 @@ const SortBar = (props) => {
     props.reload();
   };
 
-  const handleTitleSortClick = () => {
-    if (sortBy !== "title") {
-      setSortBy("title");
-      props.handleSorting("title", ascending);
+  const manageSorting = (propertyToSortBy) => {
+    if (sortBy !== propertyToSortBy) {
+      setSortBy(propertyToSortBy);
+      props.handleSorting(propertyToSortBy, ascending);
     } else {
       reset();
     }
+  };
+
+  const handleTitleSortClick = () => {
+    manageSorting("title");
   };
 
   const handleUserNameSortClick = () => {
-    if (sortBy !== "username") {
-      setSortBy("username");
-      props.handleSorting("username", ascending);
-    } else {
-      reset();
-    }
+    manageSorting("username");
   };
 
   const handlePostedDateClick = () => {
-    if (sortBy !== "created") {
-      setSortBy("created");
-      props.handleSorting("created", ascending);
-    } else {
-      reset();
-    }
+    manageSorting("created");
   };
 
   const handleAscendingClick = () => {
