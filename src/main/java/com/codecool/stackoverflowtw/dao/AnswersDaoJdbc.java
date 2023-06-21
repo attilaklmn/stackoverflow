@@ -4,10 +4,7 @@ import com.codecool.stackoverflowtw.dao.model.Answer;
 import com.codecool.stackoverflowtw.sql.database.Database;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,16 +46,21 @@ public class AnswersDaoJdbc implements AnswersDAO {
     public int addNewAnswer(String answer, String userName, int questionId) {
         String template = "INSERT INTO answer (answer, question_id, username) VALUES (?,?,?)";
         try (Connection connection = database.getConnection();
-             PreparedStatement statement = connection.prepareStatement(template)) {
+             PreparedStatement statement = connection.prepareStatement(template, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, answer);
-            statement.setInt(1, questionId);
-            statement.setString(1, userName);
-            ResultSet resultSet = statement.executeQuery();
-            resultSet.next();
-            return resultSet.getInt("id");
+            statement.setInt(2, questionId);
+            statement.setString(3, userName);
+            int affectedRows = statement.executeUpdate();
+            if (affectedRows > 0) {
+                ResultSet resultSet = statement.getGeneratedKeys();
+                if (resultSet.next()) {
+                    return resultSet.getInt(1);
+                }
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        throw new RuntimeException("Failed to add new question.");
     }
 
     @Override
