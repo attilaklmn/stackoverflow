@@ -1,4 +1,8 @@
 package com.codecool.stackoverflowtw.dao.model;
 
-public class Question {
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+public record Question(int id, String title, String desc, LocalDateTime createDate, String userName) {
+
 }
