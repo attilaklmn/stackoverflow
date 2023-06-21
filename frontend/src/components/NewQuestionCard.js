@@ -24,6 +24,28 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
+const postNewQuestion = async (
+  newUserName,
+  newQuestionTitle,
+  newQuestionDescription
+) => {
+  try {
+    const response = await fetch("http://localhost:8080/questions/", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        title: newQuestionTitle,
+        description: newQuestionDescription,
+        userName: newUserName,
+      }),
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching questions: ", error);
+  }
+};
+
 const NewQuestionCard = (props) => {
   const [expanded, setExpanded] = useState(false);
   const [newUserName, setNewUserName] = useState("");
@@ -46,7 +68,15 @@ const NewQuestionCard = (props) => {
     setNewQuestionDescription(e.target.value);
   };
 
-  const handleSubmitButtonClick = () => {};
+  const handleSubmitButtonClick = async () => {
+    console.log(
+      await postNewQuestion(
+        newUserName,
+        newQuestionTitle,
+        newQuestionDescription
+      )
+    );
+  };
 
   return (
     <Card sx={{ minWidth: "75%", maxWidth: "80%", margin: 2 }}>
