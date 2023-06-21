@@ -26,10 +26,27 @@ const ExpandMore = styled((props) => {
 
 const NewQuestionCard = (props) => {
   const [expanded, setExpanded] = useState(false);
+  const [newUserName, setNewUserName] = useState("");
+  const [newQuestionTitle, setNewQuestionTitle] = useState("");
+  const [newQuestionDescription, setNewQuestionDescription] = useState("");
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  const handleUserNameFieldChange = (e) => {
+    setNewUserName(e.target.value);
+  };
+
+  const handleNewQuestionTitleChange = (e) => {
+    setNewQuestionTitle(e.target.value);
+  };
+
+  const handleNewQuestionDescriptionChange = (e) => {
+    setNewQuestionDescription(e.target.value);
+  };
+
+  const handleSubmitButtonClick = () => {};
 
   return (
     <Card sx={{ minWidth: "75%", maxWidth: "80%", margin: 2 }}>
@@ -47,12 +64,14 @@ const NewQuestionCard = (props) => {
             id="outlined-basic"
             label="Username"
             variant="outlined"
+            onChange={handleUserNameFieldChange}
           />
           <TextField
             sx={{ margin: 1, width: "85%" }}
             id="outlined-basic"
             label="Title"
             variant="outlined"
+            onChange={handleNewQuestionTitleChange}
           />
           <TextField
             sx={{ margin: 1, width: "85%" }}
@@ -60,11 +79,13 @@ const NewQuestionCard = (props) => {
             label="Description"
             multiline
             rows={4}
+            onChange={handleNewQuestionDescriptionChange}
           />
           <Button
             sx={{ maxWidth: "20%" }}
             variant="contained"
             endIcon={<SendIcon />}
+            onClick={handleSubmitButtonClick}
           >
             Send
           </Button>
