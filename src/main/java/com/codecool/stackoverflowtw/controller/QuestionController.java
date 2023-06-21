@@ -19,8 +19,11 @@ public class QuestionController {
     }
 
     @GetMapping("/all")
-    public List<QuestionDTO> getAllQuestions() {
-        return questionService.getAllQuestions();
+    public List<QuestionDTO> getAllQuestionsSorted(@RequestParam(value = "sort_by", defaultValue = "") String sortBy,
+                                                   @RequestParam(value = "ordering", defaultValue = "false") Boolean ascending) {
+        if (sortBy.equals("")) {
+            return questionService.getAllQuestions();
+        } else return questionService.getAllQuestionsSorted(sortBy, ascending);
     }
 
     @GetMapping("/{id}")

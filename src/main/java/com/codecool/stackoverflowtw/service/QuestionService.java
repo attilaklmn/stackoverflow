@@ -33,8 +33,7 @@ public class QuestionService {
     }
 
     public boolean deleteQuestionById(int id) {
-        questionsDAO.deleteQuestionById(id);
-        return true;
+        return questionsDAO.deleteQuestionById(id);
     }
 
     public int addNewQuestion(NewQuestionDTO question) {
