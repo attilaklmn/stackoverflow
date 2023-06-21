@@ -1,4 +1,4 @@
-import { Card, CardActions, CardContent, CardHeader } from "@mui/material";
+import { Card, CardContent } from "@mui/material";
 
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
