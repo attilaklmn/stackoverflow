@@ -33,8 +33,8 @@ const Questions = () => {
       <NewQuestionCard />
       {isLoading && <LoadingButton />}
       {!isLoading &&
-        questions.map((e) => {
-          return <QuestionCard question={e} />;
+        questions.map((e, i) => {
+          return <QuestionCard key={i} question={e} />;
         })}
     </Container>
   );
