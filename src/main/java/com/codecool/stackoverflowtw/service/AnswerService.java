@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class AnswerService {
     private AnswersDAO answersDAO;
-
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     public AnswerService(AnswersDAO answersDAO) {
         this.answersDAO = answersDAO;

@@ -23,7 +23,7 @@ public class AnswersDaoJdbc implements AnswersDAO {
         try (Connection connection = database.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, questionId);
-            ResultSet resultSet = statement.executeQuery(query);
+            ResultSet resultSet = statement.executeQuery();
             List<Answer> allQuestions = new ArrayList<>();
             while (resultSet.next()) {
                 allQuestions.add(getAllAnswerDetailsFromResultSet(resultSet));

@@ -2,11 +2,7 @@ package com.codecool.stackoverflowtw.controller;
 
 import com.codecool.stackoverflowtw.controller.dto.AnswerDTO;
 import com.codecool.stackoverflowtw.controller.dto.NewAnswerDTO;
-import com.codecool.stackoverflowtw.controller.dto.NewQuestionDTO;
-import com.codecool.stackoverflowtw.controller.dto.QuestionDTO;
-import com.codecool.stackoverflowtw.dao.model.Answer;
 import com.codecool.stackoverflowtw.service.AnswerService;
-import com.codecool.stackoverflowtw.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +18,7 @@ public class AnswerController {
         this.answerService = answerService;
     }
 
-    @GetMapping("/{id>")
+    @GetMapping("/{id}")
     public List<AnswerDTO> getAllAnswersForQuestionID(@PathVariable int id) {
         return answerService.getAllAnswersForQuestionID(id);
     }

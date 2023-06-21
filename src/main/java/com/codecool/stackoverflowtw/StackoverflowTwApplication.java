@@ -4,6 +4,7 @@ import com.codecool.stackoverflowtw.dao.AnswersDAO;
 import com.codecool.stackoverflowtw.dao.AnswersDaoJdbc;
 import com.codecool.stackoverflowtw.dao.QuestionsDAO;
 import com.codecool.stackoverflowtw.dao.QuestionsDaoJdbc;
+import com.codecool.stackoverflowtw.service.AnswerService;
 import com.codecool.stackoverflowtw.sql.database.Database;
 import com.codecool.stackoverflowtw.sql.initialize.TableInitializer;
 import com.codecool.stackoverflowtw.sql.initialize.TableStatements;
@@ -20,7 +21,10 @@ public class StackoverflowTwApplication {
 
         SpringApplication.run(StackoverflowTwApplication.class, args);
     }
-
+    @Bean
+    public AnswerService answerService(Database database) {
+        return new AnswerService(answersDAO(database));
+    }
     @Bean
     public QuestionsDAO questionsDAO(Database database) {
         return new QuestionsDaoJdbc(database);
