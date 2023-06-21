@@ -1,12 +1,13 @@
 import { Card, CardHeader } from "@mui/material";
 
-const AnswerCard = props => {
-    return (
-        <Card sx={{ margin: 1 }}>
-            <CardHeader title="username" subheader="date" />
-            answer1
-          </Card>
-    )
-}
+const AnswerCard = (props) => {
+  const { id, answer, questionId, createDate, userName } = props.answerObject;
+  return (
+    <Card sx={{ margin: 1 }}>
+      <CardHeader title={userName} subheader={createDate} />
+      {answer}
+    </Card>
+  );
+};
 
 export default AnswerCard;

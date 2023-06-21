@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -14,6 +14,7 @@ import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import AnswerCard from "./AnswerCard";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -27,8 +28,24 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function QuestionCard(props) {
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = useState(false);
+  const [answers, setAnswers] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const { id, title, desc, createDate, userName } = props.question;
+
+  useEffect(() => {
+    const fetchAnswers = async () => {
+      try {
+        const response = await fetch(`http://localhost:8080/answers/${id}`);
+        const data = await response.json();
+        setAnswers(data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error in fetching answers: ", error);
+      }
+    };
+    fetchAnswers();
+  }, []);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -76,7 +93,11 @@ export default function QuestionCard(props) {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <AnswerCard />
+          {isLoading && <LoadingButton />}
+          {!isLoading &&
+            answers.map((e, i) => {
+              return <AnswerCard key={i} answerObject={e} />;
+            })}
         </CardContent>
       </Collapse>
     </Card>
