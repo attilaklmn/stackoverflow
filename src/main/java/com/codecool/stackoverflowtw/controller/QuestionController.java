@@ -17,7 +17,7 @@ public class QuestionController {
     public QuestionController(QuestionService questionService) {
         this.questionService = questionService;
     }
-
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/all")
     public List<QuestionDTO> getAllQuestionsSorted(@RequestParam(value = "sort_by", defaultValue = "") String sortBy,
                                                    @RequestParam(value = "ordering", defaultValue = "false") Boolean ascending) {
@@ -25,20 +25,22 @@ public class QuestionController {
             return questionService.getAllQuestions();
         } else return questionService.getAllQuestionsSorted(sortBy, ascending);
     }
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/all/search/{param}")
     public List<QuestionDTO> getAllQuestionsWithSearchParamInTitle(@PathVariable String param) {
         return questionService.getAllQuestionsWithSearchParamInTitle(param);
     }
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/{id}")
     public QuestionDTO getQuestionById(@PathVariable int id) {
         return questionService.getQuestionById(id);
     }
-
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/")
     public int addNewQuestion(@RequestBody NewQuestionDTO question) {
         return questionService.addNewQuestion(question);
     }
-
+    @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/{id}")
     public boolean deleteQuestionById(@PathVariable int id) {
         return questionService.deleteQuestionById(id);
