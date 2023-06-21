@@ -47,6 +47,21 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
             throw new RuntimeException(e);
         }
     }
+    @Override
+    public List<Question> searchInQuestionTitles(String searchParam) {
+        String query = "SELECT * FROM question WHERE LOWER(title) LIKE '%" + searchParam + "%'";
+        try (Connection connection = database.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+            List<Question> allQuestions = new ArrayList<>();
+            while (resultSet.next()) {
+                allQuestions.add(getAllQuestionDetailsFromResultSet(resultSet));
+            }
+            return allQuestions;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @Override
     public Question getQuestionById(int id) {
@@ -107,6 +122,7 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
         }
         throw new RuntimeException("Failed to add new question.");
     }
+
 
 
 }

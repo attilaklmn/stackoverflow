@@ -16,4 +16,5 @@ public interface QuestionsDAO {
     int addNewQuestion(String title, String description, String userName);
 
     List<Question> getAllQuestionsSorted(String propertyToSortBy, boolean ascending);
+    List<Question> searchInQuestionTitles(String searchParam);
 }

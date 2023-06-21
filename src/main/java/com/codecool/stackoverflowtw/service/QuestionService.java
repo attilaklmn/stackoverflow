@@ -21,7 +21,11 @@ public class QuestionService {
     public QuestionService(QuestionsDAO questionsDAO) {
         this.questionsDAO = questionsDAO;
     }
+    public List<QuestionDTO> getAllQuestionsWithSearchParamInTitle(String searchParam) {
+        List<Question> allQuestions = questionsDAO.searchInQuestionTitles(searchParam);
+        return allQuestions.stream().map(question -> new QuestionDTO(question.id(), question.title(), question.desc(), question.createDate(), question.userName())).collect(Collectors.toList());
 
+    }
     public List<QuestionDTO> getAllQuestions() {
         List<Question> allQuestions = questionsDAO.getAllQuestions();
         return allQuestions.stream().map(question -> new QuestionDTO(question.id(), question.title(), question.desc(), question.createDate(), question.userName())).collect(Collectors.toList());
