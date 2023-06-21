@@ -11,9 +11,10 @@ public interface QuestionsDAO {
 
     Question getQuestionById(int id);
 
-    void deleteQuestionById(int id);
+    boolean deleteQuestionById(int id);
 
     int addNewQuestion(String title, String description, String userName);
 
     List<Question> getAllQuestionsSorted(String propertyToSortBy, boolean ascending);
+    List<Question> searchInQuestionTitles(String searchParam);
 }

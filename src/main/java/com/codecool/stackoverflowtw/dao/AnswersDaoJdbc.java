@@ -23,7 +23,7 @@ public class AnswersDaoJdbc implements AnswersDAO {
         try (Connection connection = database.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, questionId);
-            ResultSet resultSet = statement.executeQuery(query);
+            ResultSet resultSet = statement.executeQuery();
             List<Answer> allQuestions = new ArrayList<>();
             while (resultSet.next()) {
                 allQuestions.add(getAllAnswerDetailsFromResultSet(resultSet));
@@ -64,12 +64,13 @@ public class AnswersDaoJdbc implements AnswersDAO {
     }
 
     @Override
-    public void deleteAnswerById(int id) {
+    public boolean deleteAnswerById(int id) {
         String template = "DELETE FROM answer WHERE id = ?";
         try (Connection connection = database.getConnection();
              PreparedStatement statement = connection.prepareStatement(template)) {
             statement.setInt(1, id);
-            statement.executeUpdate();
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
