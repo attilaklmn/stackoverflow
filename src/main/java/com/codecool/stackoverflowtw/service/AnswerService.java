@@ -25,7 +25,6 @@ public class AnswerService {
         return answersDAO.addNewAnswer(answerDTO.answer(), answerDTO.userName(), answerDTO.questionId());
     }
     public boolean deleteAnswer(int id) {
-        answersDAO.deleteAnswerById(id);
-        return true;
+        return answersDAO.deleteAnswerById(id);
     }
 }

@@ -60,12 +60,13 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
     }
 
     @Override
-    public void deleteQuestionById(int id) {
+    public boolean deleteQuestionById(int id) {
         String template = "DELETE FROM question WHERE id = ?";
         try (Connection connection = database.getConnection();
              PreparedStatement statement = connection.prepareStatement(template)) {
             statement.setInt(1, id);
-            statement.executeUpdate();
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
