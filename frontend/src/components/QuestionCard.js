@@ -8,11 +8,12 @@ import Collapse from "@mui/material/Collapse";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import { red } from "@mui/material/colors";
+import { orange } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import AnswerCard from "./AnswerCard";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -27,17 +28,18 @@ const ExpandMore = styled((props) => {
 
 export default function QuestionCard(props) {
   const [expanded, setExpanded] = React.useState(false);
+  const { id, title, desc, createDate, userName } = props.question;
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
   return (
-    <Card sx={{ minWidth: 800, maxWidth: 1000, margin: 2 }}>
+    <Card sx={{ minWidth: "75%", maxWidth: "80%", margin: 2 }}>
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
+          <Avatar sx={{ bgcolor: orange[700] }} aria-label="recipe">
+            {userName[0].toUpperCase()}
           </Avatar>
         }
         action={
@@ -45,12 +47,15 @@ export default function QuestionCard(props) {
             <MoreVertIcon />
           </IconButton>
         }
-        title={props.userName}
-        subheader="date"
+        title={userName}
+        subheader={createDate}
       />
       <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          My question...
+        <Typography variant="body1" color="text.primary">
+          {title}
+        </Typography>
+        <Typography variant="body2" color="text.primary">
+          {desc}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -71,11 +76,7 @@ export default function QuestionCard(props) {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Card sx={{ margin: 1 }}>
-            <CardHeader title="username" subheader="date" />
-            answer1
-          </Card>
-          <Card sx={{ margin: 1 }}>answer2</Card>
+          <AnswerCard />
         </CardContent>
       </Collapse>
     </Card>
