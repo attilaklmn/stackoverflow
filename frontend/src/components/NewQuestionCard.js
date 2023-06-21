@@ -69,13 +69,18 @@ const NewQuestionCard = (props) => {
   };
 
   const handleSubmitButtonClick = async () => {
-    console.log(
+    if (newUserName && newQuestionTitle && newQuestionDescription) {
       await postNewQuestion(
         newUserName,
         newQuestionTitle,
         newQuestionDescription
-      )
-    );
+      );
+      props.reload();
+      setNewUserName("");
+      setNewQuestionTitle("");
+      setNewQuestionDescription("");
+      setExpanded(false);
+    } else alert("Please fill all fields!");
   };
 
   return (
@@ -95,6 +100,7 @@ const NewQuestionCard = (props) => {
             label="Username"
             variant="outlined"
             onChange={handleUserNameFieldChange}
+            value={newUserName ? newUserName : ""}
           />
           <TextField
             sx={{ margin: 1, width: "85%" }}
@@ -102,6 +108,7 @@ const NewQuestionCard = (props) => {
             label="Title"
             variant="outlined"
             onChange={handleNewQuestionTitleChange}
+            value={newQuestionTitle ? newQuestionTitle : ""}
           />
           <TextField
             sx={{ margin: 1, width: "85%" }}
@@ -110,6 +117,7 @@ const NewQuestionCard = (props) => {
             multiline
             rows={4}
             onChange={handleNewQuestionDescriptionChange}
+            value={newQuestionDescription ? newQuestionDescription : ""}
           />
           <Button
             sx={{ maxWidth: "20%" }}
