@@ -4,6 +4,7 @@ import QuestionCard from "./components/QuestionCard";
 import { Container } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import SearchBar from "./components/SearchBar";
+import SortBar from "./components/SortBar";
 
 const fetchAllQuestions = async (setQuestions, setIsLoading) => {
   try {
@@ -20,6 +21,18 @@ const fetchSearchedQuestions = async (setQuestions, searchFieldText) => {
   try {
     const response = await fetch(
       `http://localhost:8080/questions/all/search/${searchFieldText}`
+    );
+    const data = await response.json();
+    setQuestions(data);
+  } catch (error) {
+    console.error("Error fetching questions: ", error);
+  }
+};
+
+const fetchSortedQuestions = async (setQuestions, sortBy, ascending) => {
+  try {
+    const response = await fetch(
+      `http://localhost:8080/questions/all?sort_by=${sortBy}&ordering=${ascending}`
     );
     const data = await response.json();
     setQuestions(data);
@@ -48,6 +61,10 @@ const Questions = () => {
     }
   };
 
+  const handleSorting = (sortBy, ascending) => {
+    fetchSortedQuestions(setQuestions, sortBy, ascending ? "true" : "false");
+  };
+
   return (
     <Container
       sx={{
@@ -58,6 +75,7 @@ const Questions = () => {
       }}
     >
       <SearchBar onFieldChange={handleSearchFieldChange} />
+      <SortBar handleSorting={handleSorting} reload={reload}></SortBar>
       <NewQuestionCard reload={reload} />
       {isLoading && <LoadingButton />}
       {!isLoading &&
