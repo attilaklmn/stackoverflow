@@ -1,32 +1,26 @@
+import { useEffect, useState } from "react";
 import NewQuestionCard from "./components/NewQuestionCard";
 import QuestionCard from "./components/QuestionCard";
 import { Container } from "@mui/material";
-
-const DUMMY_QUESTIONS = [
-  {
-    id: 1,
-    title: "title1",
-    desc: "description 1",
-    createDate: "create date",
-    userName: "user1",
-  },
-  {
-    id: 2,
-    title: "title2",
-    desc: "description 2",
-    createDate: "create date",
-    userName: "user2",
-  },
-  {
-    id: 3,
-    title: "title3",
-    desc: "description 3",
-    createDate: "create date",
-    userName: "user3",
-  },
-];
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const Questions = () => {
+  const [questions, setQuestions] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchQuestions = async () => {
+      try {
+        const response = await fetch("http://localhost:8080/questions/all");
+        const data = await response.json();
+        setQuestions(data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching questions: ", error);
+      }
+    };
+    fetchQuestions();
+  }, []);
   return (
     <Container
       sx={{
@@ -37,9 +31,11 @@ const Questions = () => {
       }}
     >
       <NewQuestionCard />
-      {DUMMY_QUESTIONS.map((e) => {
-        return <QuestionCard question={e} />;
-      })}
+      {isLoading && <LoadingButton />}
+      {!isLoading &&
+        questions.map((e) => {
+          return <QuestionCard question={e} />;
+        })}
     </Container>
   );
 };
