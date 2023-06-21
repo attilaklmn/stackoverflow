@@ -4,23 +4,28 @@ import QuestionCard from "./components/QuestionCard";
 import { Container } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 
+const fetchAllQuestions = async (setQuestions, setIsLoading) => {
+  try {
+    const response = await fetch("http://localhost:8080/questions/all");
+    const data = await response.json();
+    setQuestions(data);
+    setIsLoading(false);
+  } catch (error) {
+    console.error("Error fetching questions: ", error);
+  }
+};
+
 const Questions = () => {
   const [questions, setQuestions] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchQuestions = async () => {
-      try {
-        const response = await fetch("http://localhost:8080/questions/all");
-        const data = await response.json();
-        setQuestions(data);
-        setIsLoading(false);
-      } catch (error) {
-        console.error("Error fetching questions: ", error);
-      }
-    };
-    fetchQuestions();
+    fetchAllQuestions(setQuestions, setIsLoading);
   }, []);
+
+  const reload = () => {
+    fetchAllQuestions(setQuestions, setIsLoading);
+  };
   return (
     <Container
       sx={{
@@ -30,7 +35,7 @@ const Questions = () => {
         flexDirection: "column",
       }}
     >
-      <NewQuestionCard />
+      <NewQuestionCard reload={reload} />
       {isLoading && <LoadingButton />}
       {!isLoading &&
         questions.map((e) => {
