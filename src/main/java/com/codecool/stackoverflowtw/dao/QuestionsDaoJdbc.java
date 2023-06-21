@@ -53,7 +53,7 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
 
     private Question getAllQuestionDetailsFromResultSet(ResultSet resultSet) {
         try {
-            return new Question(resultSet.getInt("id"), resultSet.getString("title"), resultSet.getString("desc"), resultSet.getTimestamp("created").toLocalDateTime(), resultSet.getString("username"));
+            return new Question(resultSet.getInt("id"), resultSet.getString("title"), resultSet.getString("description"), resultSet.getTimestamp("created").toLocalDateTime(), resultSet.getString("username"));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -75,16 +75,21 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
     public int addNewQuestion(String title, String description, String userName) {
         String template = "INSERT INTO question (title, description, username) VALUES (?,?,?)";
         try (Connection connection = database.getConnection();
-             PreparedStatement statement = connection.prepareStatement(template)) {
+             PreparedStatement statement = connection.prepareStatement(template, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, title);
-            statement.setString(1, description);
-            statement.setString(1, userName);
-            ResultSet resultSet = statement.executeQuery();
-            resultSet.next();
-            return resultSet.getInt("id");
+            statement.setString(2, description);
+            statement.setString(3, userName);
+            int affectedRows = statement.executeUpdate();
+            if (affectedRows > 0) {
+                ResultSet resultSet = statement.getGeneratedKeys();
+                if (resultSet.next()) {
+                    return resultSet.getInt(1);
+                }
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        throw new RuntimeException("Failed to add new question.");
     }
 
     @Override
