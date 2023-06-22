@@ -2,81 +2,92 @@ import { Card, CardContent } from "@mui/material";
 
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
-import { useState } from "react";
+import { Fragment } from "react";
+import SearchBar from "./SearchBar";
+
+let sortBy = "";
+let ascending = false;
+let searchFieldText = "";
 
 const SortBar = (props) => {
-  const [sortBy, setSortBy] = useState("");
-  const [ascending, setAscending] = useState(false);
-
-  const reset = () => {
-    setSortBy("");
-    props.reload();
-  };
-
-  const manageSorting = (propertyToSortBy) => {
+  const handleSortClick = (propertyToSortBy) => {
     if (sortBy !== propertyToSortBy) {
-      setSortBy(propertyToSortBy);
-      props.handleSorting(propertyToSortBy, ascending);
+      sortBy = propertyToSortBy;
+      manageSortAndSearch();
     } else {
-      reset();
+      sortBy = "";
+      manageSortAndSearch();
     }
-  };
-
-  const handleTitleSortClick = () => {
-    manageSorting("title");
-  };
-
-  const handleUserNameSortClick = () => {
-    manageSorting("username");
-  };
-
-  const handlePostedDateClick = () => {
-    manageSorting("created");
   };
 
   const handleAscendingClick = () => {
     let prevAscending = ascending;
-    setAscending(!prevAscending);
+    ascending = !prevAscending;
     if (sortBy) {
-      props.handleSorting(sortBy, !prevAscending);
+      manageSortAndSearch();
+    }
+  };
+
+  const handleSearchFieldChange = (fieldText) => {
+    searchFieldText = fieldText;
+    manageSortAndSearch();
+  };
+
+  const manageSortAndSearch = () => {
+    const params = new URLSearchParams();
+    if (sortBy) {
+      params.append("sort_by", sortBy);
+      params.append("ordering", ascending ? "true" : "false");
+    }
+    if (searchFieldText) {
+      params.append("search", searchFieldText);
+    }
+    if (!sortBy && !searchFieldText) {
+      props.reload();
+    } else {
+      const queryString = params.toString();
+      props.handleSortAndSearch(queryString);
     }
   };
 
   return (
-    <Card sx={{ minWidth: "75%", maxWidth: "80%", margin: 2 }}>
-      <CardContent
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Stack direction="row" spacing={2}>
-          <Button
-            variant={sortBy === "title" ? "contained" : "outlined"}
-            onClick={handleTitleSortClick}
-          >
-            Title
-          </Button>
-          <Button
-            variant={sortBy === "username" ? "contained" : "outlined"}
-            onClick={handleUserNameSortClick}
-          >
-            Username
-          </Button>
-          <Button
-            variant={sortBy === "created" ? "contained" : "outlined"}
-            onClick={handlePostedDateClick}
-          >
-            Date
-          </Button>
-          <Button variant={"contained"} onClick={handleAscendingClick}>
-            {ascending ? "asc" : "desc"}
-          </Button>
-        </Stack>
-      </CardContent>
-    </Card>
+    <Fragment>
+      <SearchBar onFieldChange={handleSearchFieldChange} />
+      <Card sx={{ minWidth: "75%", maxWidth: "80%", margin: 2 }}>
+        <CardContent
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Stack direction="row" spacing={2}>
+            <Button
+              variant={sortBy === "title" ? "contained" : "outlined"}
+              onClick={() => handleSortClick("title")}
+            >
+              Title
+            </Button>
+            <Button
+              variant={sortBy === "username" ? "contained" : "outlined"}
+              onClick={() => handleSortClick("username")}
+            >
+              Username
+            </Button>
+            <Button
+              variant={sortBy === "created" ? "contained" : "outlined"}
+              onClick={() => handleSortClick("created")}
+            >
+              Date
+            </Button>
+            <Button variant={"contained"} onClick={handleAscendingClick}>
+              {ascending ? "asc" : "desc"}
+            </Button>
+          </Stack>
+        </CardContent>
+      </Card>
+    </Fragment>
   );
 };
 
