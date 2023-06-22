@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -15,6 +15,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import AnswerCard from "./AnswerCard";
 import LoadingButton from "@mui/lab/LoadingButton";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -60,9 +61,17 @@ export default function QuestionCard(props) {
           </Avatar>
         }
         action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
+          <Fragment>
+            <IconButton
+              onClick={() => props.onDeleteQuestionClick(id)}
+              aria-label="delete"
+            >
+              <DeleteIcon />
+            </IconButton>
+            <IconButton aria-label="settings">
+              <MoreVertIcon />
+            </IconButton>
+          </Fragment>
         }
         title={userName}
         subheader={createDate}
