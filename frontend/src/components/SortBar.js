@@ -81,7 +81,10 @@ const SortBar = (props) => {
             >
               Date
             </Button>
-            <Button variant={"contained"} onClick={handleAscendingClick}>
+            <Button
+              variant={sortBy ? "contained" : "outlined"}
+              onClick={handleAscendingClick}
+            >
               {ascending ? "asc" : "desc"}
             </Button>
           </Stack>
