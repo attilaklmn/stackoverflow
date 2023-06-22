@@ -76,10 +76,12 @@ export default function QuestionCard(props) {
           </Fragment>
         }
         title={userName}
-        subheader={createDate}
+        subheader={
+          createDate.substring(0, 10) + " " + createDate.substring(11, 16)
+        }
       />
       <CardContent>
-        <Typography variant="body1" color="text.primary">
+        <Typography variant="body1" fontSize="30px" color="text.primary">
           {title}
         </Typography>
         <Typography variant="body2" color="text.primary">
@@ -105,12 +107,23 @@ export default function QuestionCard(props) {
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           {isLoading && <LoadingButton />}
-          
+
           {!isLoading &&
             answers.map((e, i) => {
-              return <AnswerCard key={i} answerObject={e} reload={() => setHasNewAnswer(!hasNewAnswer)} />;
+              return (
+                <AnswerCard
+                  key={i}
+                  answerObject={e}
+                  reload={() => setHasNewAnswer(!hasNewAnswer)}
+                />
+              );
             })}
-          {!isLoading && <NewAnswerCard reload={() => setHasNewAnswer(!hasNewAnswer)} questionId={id} />}
+          {!isLoading && (
+            <NewAnswerCard
+              reload={() => setHasNewAnswer(!hasNewAnswer)}
+              questionId={id}
+            />
+          )}
         </CardContent>
       </Collapse>
     </Card>
