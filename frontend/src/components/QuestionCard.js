@@ -55,7 +55,7 @@ export default function QuestionCard(props) {
   };
 
   return (
-    <Card sx={{ minWidth: "75%", maxWidth: "80%", margin: 2 }}>
+    <Card sx={{ width: "75%", margin: 2 }}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: orange[700] }} aria-label="recipe">
