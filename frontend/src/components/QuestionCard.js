@@ -15,6 +15,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import AnswerCard from "./AnswerCard";
 import LoadingButton from "@mui/lab/LoadingButton";
+import NewAnswerCard from "./NewAnswerCard";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 const ExpandMore = styled((props) => {
@@ -32,6 +33,7 @@ export default function QuestionCard(props) {
   const [expanded, setExpanded] = useState(false);
   const [answers, setAnswers] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [hasNewAnswer, setHasNewAnswer] = useState(false);
   const { id, title, description, createDate, userName } = props.question;
 
   useEffect(() => {
@@ -46,7 +48,7 @@ export default function QuestionCard(props) {
       }
     };
     fetchAnswers();
-  }, []);
+  }, [hasNewAnswer]);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -103,10 +105,12 @@ export default function QuestionCard(props) {
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           {isLoading && <LoadingButton />}
+          
           {!isLoading &&
             answers.map((e, i) => {
               return <AnswerCard key={i} answerObject={e} />;
             })}
+          {!isLoading && <NewAnswerCard loadNewAnswer={() => setHasNewAnswer(!hasNewAnswer)} questionId={id} />}
         </CardContent>
       </Collapse>
     </Card>
