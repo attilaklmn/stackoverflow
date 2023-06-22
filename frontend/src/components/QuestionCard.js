@@ -108,9 +108,9 @@ export default function QuestionCard(props) {
           
           {!isLoading &&
             answers.map((e, i) => {
-              return <AnswerCard key={i} answerObject={e} />;
+              return <AnswerCard key={i} answerObject={e} reload={() => setHasNewAnswer(!hasNewAnswer)} />;
             })}
-          {!isLoading && <NewAnswerCard loadNewAnswer={() => setHasNewAnswer(!hasNewAnswer)} questionId={id} />}
+          {!isLoading && <NewAnswerCard reload={() => setHasNewAnswer(!hasNewAnswer)} questionId={id} />}
         </CardContent>
       </Collapse>
     </Card>
