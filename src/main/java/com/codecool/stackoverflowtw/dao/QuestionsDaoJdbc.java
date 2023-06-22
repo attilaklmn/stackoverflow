@@ -47,8 +47,11 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
             throw new RuntimeException(e);
         }
     }
-    public List<Question> getAllQuestionsSortedAndSearched(String propertyToSortBy, boolean ascending, String searchValue){
-        String query = "SELECT * FROM question WHERE LOWER(title) LIKE '%" + searchValue + "%' ORDER BY " + propertyToSortBy + (ascending ? " ASC" : " DESC");
+    public List<Question> getAllQuestionsSortedAndSearched
+            (String propertyToSortBy, boolean ascending, String searchValue){
+        String query = "SELECT * FROM question WHERE LOWER(title) LIKE '%"
+                + searchValue + "%' ORDER BY " + propertyToSortBy
+                + (ascending ? " ASC" : " DESC");
         try (Connection connection = database.getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
@@ -111,7 +114,19 @@ public class QuestionsDaoJdbc implements QuestionsDAO {
              PreparedStatement statement = connection.prepareStatement(template)) {
             statement.setInt(1, id);
             int rowsAffected = statement.executeUpdate();
+            deleteAnswersOfDeletedQuestion(id);
             return rowsAffected > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void deleteAnswersOfDeletedQuestion(int id) {
+        String template = "DELETE FROM answer WHERE question_id = ?";
+        try (Connection connection = database.getConnection();
+             PreparedStatement statement = connection.prepareStatement(template)) {
+            statement.setInt(1, id);
+            statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
