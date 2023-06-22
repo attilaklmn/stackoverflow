@@ -48,4 +48,19 @@ public class QuestionService {
         List<Question> allQuestions = questionsDAO.getAllQuestionsSorted(propertyToSortBy, ascending);
         return allQuestions.stream().map(question -> new QuestionDTO(question.id(), question.title(), question.desc(), question.createDate(), question.userName())).collect(Collectors.toList());
     };
+    public List<QuestionDTO> getAllQuestionsSortedAndSearched(String propertyToSortBy, boolean ascending, String searchValue) {
+        if (propertyToSortBy.equals("") && searchValue.equals("")) {
+            return getAllQuestions();
+        } else if (searchValue.equals("")) {
+            return getAllQuestionsSorted(propertyToSortBy, ascending);
+        } else if (propertyToSortBy.equals("")) {
+            return getAllQuestionsWithSearchParamInTitle(searchValue);
+        } else {
+            List<Question> allQuestions = questionsDAO.getAllQuestionsSortedAndSearched(propertyToSortBy, ascending, searchValue);
+            return allQuestions.stream().map(question -> new QuestionDTO(question.id(), question.title(), question.desc(), question.createDate(), question.userName())).collect(Collectors.toList());
+
+        }
+
+        };
+
 }
