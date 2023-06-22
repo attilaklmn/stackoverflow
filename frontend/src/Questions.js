@@ -27,6 +27,22 @@ const fetchSortedAndSearchedQuestions = async (queryString, setQuestions) => {
     console.error("Error fetching questions: ", error);
   }
 };
+
+const deleteQuestion = async (questionId) => {
+  try {
+    const response = await fetch(
+      `http://localhost:8080/questions/${questionId}`,
+      {
+        method: "DELETE",
+      }
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error deleting question: ", error);
+  }
+};
+
 const Questions = () => {
   const [questions, setQuestions] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -41,6 +57,11 @@ const Questions = () => {
 
   const handleSortAndSearch = (queryString) => {
     fetchSortedAndSearchedQuestions(queryString, setQuestions);
+  };
+
+  const handleDeleteQuestionClick = async (questionId) => {
+    await deleteQuestion(questionId);
+    reload();
   };
 
   return (
@@ -60,7 +81,13 @@ const Questions = () => {
       {isLoading && <LoadingButton />}
       {!isLoading &&
         questions.map((e, i) => {
-          return <QuestionCard key={i} question={e} />;
+          return (
+            <QuestionCard
+              key={i}
+              question={e}
+              onDeleteQuestionClick={handleDeleteQuestionClick}
+            />
+          );
         })}
     </Container>
   );
