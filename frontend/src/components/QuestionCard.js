@@ -31,7 +31,7 @@ export default function QuestionCard(props) {
   const [expanded, setExpanded] = useState(false);
   const [answers, setAnswers] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const { id, title, desc, createDate, userName } = props.question;
+  const { id, title, description, createDate, userName } = props.question;
 
   useEffect(() => {
     const fetchAnswers = async () => {
@@ -72,7 +72,7 @@ export default function QuestionCard(props) {
           {title}
         </Typography>
         <Typography variant="body2" color="text.primary">
-          {desc}
+          {description}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>

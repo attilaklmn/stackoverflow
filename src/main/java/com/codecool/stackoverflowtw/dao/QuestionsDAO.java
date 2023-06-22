@@ -17,4 +17,6 @@ public interface QuestionsDAO {
 
     List<Question> getAllQuestionsSorted(String propertyToSortBy, boolean ascending);
     List<Question> searchInQuestionTitles(String searchParam);
+
+    List<Question> getAllQuestionsSortedAndSearched(String propertyToSortBy, boolean ascending, String searchValue);
 }
