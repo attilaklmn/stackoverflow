@@ -20,9 +20,10 @@ public class QuestionController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/all")
-    public List<QuestionDTO> getAllQuestionsSorted(@RequestParam(value = "sort_by", defaultValue = "") String sortBy,
-                                                   @RequestParam(value = "ordering", defaultValue = "false") Boolean ascending,
-                                                   @RequestParam(value = "search", defaultValue = "") String searchValue) {
+    public List<QuestionDTO> getAllQuestionsSorted(
+            @RequestParam(value = "sort_by", defaultValue = "") String sortBy,
+            @RequestParam(value = "ordering", defaultValue = "false") Boolean ascending,
+            @RequestParam(value = "search", defaultValue = "") String searchValue) {
         return questionService.getAllQuestionsSortedAndSearched(sortBy, ascending, searchValue);
     }
 
