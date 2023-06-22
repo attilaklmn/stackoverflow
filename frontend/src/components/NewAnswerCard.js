@@ -30,7 +30,7 @@ const NewAnswerCard = (props) => {
     const handleSubmit = async () => {
         if (newUserName && newAnswer) {
             await postNewAnswer(questionId, newAnswer, newUserName);
-            props.loadNewAnswer();
+            props.reload();
             setNewAnswer("");
             setNewUserName("");
         } else alert("Please fill all fields!")
