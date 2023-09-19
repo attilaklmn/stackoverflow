@@ -155,9 +155,15 @@ The application then will create the needed tables.
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+After succesfull installation you are now ready to use the application.
+Navigate to the dropdown menu on the top-left part of the screen, then choose "questions".
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+Here you can:
+- Add new questions
+- Sort the questions by date, username or title - each ascending or descending
+- Search by the titles of the questions
+- Edit or delete existing questions
+- Add answers to the questions (by clicking the bottom-right arrow icon)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -166,12 +172,13 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
+- [ ] Frontend layout base & backend structure
+- [ ] Local PostgreSQL connection
+- [ ] Database initialization
+- [ ] Sorting and searching options
+- [ ] Option to add answers
 
-See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/attilaklmn/stackoverflow/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -193,23 +200,12 @@ Don't forget to give the project a star! Thanks again!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
-<!-- LICENSE -->
-## License
-
-Distributed under the MIT License. See `LICENSE.txt` for more information.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
+Gábor Szajkó - szajkoggg@gmail.com
 
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
+Project Link: [https://github.com/attilaklmn/stackoverflow](https://github.com/attilaklmn/stackoverflow)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -218,9 +214,16 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-* []()
-* []()
-* []()
+Creators:
+ - Attila Örs Kálmán
+ - Gábor Szajkó
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- LICENSE -->
+## License
+
+Readme template distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
