@@ -30,19 +30,18 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/github_username/repo_name">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  <a href="https://github.com/attilaklmn/stackoverflow">
+    <img src="Hackoverflow_Logo.png" alt="Logo" width="1228" height="378">
   </a>
 
-<h3 align="center">project_title</h3>
-
   <p align="center">
-    project_description
+     <br />
+    <br />
+    Educational group project aimed to create a reimagined copy of the stackoverflow website.
     <br />
     <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/github_username/repo_name">View Demo</a>
     ·
     <a href="https://github.com/github_username/repo_name/issues">Report Bug</a>
     ·
