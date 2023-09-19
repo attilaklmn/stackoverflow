@@ -105,31 +105,47 @@
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+To run this application you will need to follow below steps.
+Since this application is using a local database, you will need a blank PostgreSQL database to connect our application to.
+The application then will create the needed tables.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+- PostgreSQL
+- Java IDE
+- JDK, Maven
+- Node.js
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
    ```sh
-   git clone https://github.com/github_username/repo_name.git
+   git clone https://github.com/attilaklmn/stackoverflow.git
    ```
-3. Install NPM packages
+2. Install NPM packages in the frontend folder
    ```sh
    npm install
    ```
-4. Enter your API in `config.js`
+3. Install Maven dependencies in the src folder
+   ```sh
+   mvn install
+   ```
+4. Open the src folder in your IDE
+
+5. Connect a blank PostgreSQL database
+
+6. Setup the local environment variables
+   - DATABASE_PASSWORD - your PostgreSQL connection password
+   - DATABASE_USERNAME - your PostgreSQL username
+   - DATABASE_URL - your JDBC-PostgreSQL connection string
+  
+7. Run the backend in your IDE
+8. Run the client in the reactapp folder
    ```js
-   const API_KEY = 'ENTER YOUR API';
+   npm start
+9. Access the application in your browser (default address below)
+   ```sh
+   http://localhost:3000
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
