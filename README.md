@@ -172,11 +172,11 @@ Here you can:
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Frontend layout base & backend structure
-- [ ] Local PostgreSQL connection
-- [ ] Database initialization
-- [ ] Sorting and searching options
-- [ ] Option to add answers
+- [X] Frontend layout base & backend structure
+- [X] Local PostgreSQL connection
+- [X] Database initialization
+- [X] Sorting and searching options
+- [X] Option to add answers
 
 See the [open issues](https://github.com/attilaklmn/stackoverflow/issues) for a full list of proposed features (and known issues).
 
